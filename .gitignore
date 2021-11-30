@@ -1,0 +1,7 @@
+.session
+.idea
+.vscode
+bin/
+obj/
+aoc2021-csharp.sln.DotSettings.user
+.DS_Store
