@@ -59,6 +59,15 @@ public static class Extensions
       yield return (source[i - 1], source[i]);
   }
 
+  public static IEnumerable<(T A, T B, T C)> TakeThree<T>(this IReadOnlyList<T> source)
+  {
+    if (source.Count < 3)
+      yield break;
+
+    for (var i = 2; i < source.Count; i++)
+      yield return (source[i - 2], source[i - 1], source[i]);
+  }
+
   public static IEnumerable<(T1 A, T2 B)> Pairs<T1, T2>(this IEnumerable<T1> source, IEnumerable<T2> other) =>
     source.SelectMany(x => other.Select(y => (x, y)));
 
