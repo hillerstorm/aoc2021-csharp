@@ -27,7 +27,7 @@ public static class Extensions
       return (null, ".session file found but is empty, save value from Cookie header on your aoc page");
 
     var client = new HttpClient();
-    client.DefaultRequestHeaders.Add("Cookie", $"session={session}");
+    client.DefaultRequestHeaders.Add("Cookie", $"session={session.Trim()}");
     var result = await client.GetStringAsync($"https://adventofcode.com/2021/day/{day}/input");
 
     Console.WriteLine("Downloaded input, saving to disk");
