@@ -94,11 +94,28 @@ public static class Extensions
         source.AddToBack(source.RemoveFromFront());
   }
 
-  public static IEnumerable<IEnumerable<T1>> PartitionBy<T1>(this IEnumerable<T1> source, int width)
+  public static IEnumerable<IEnumerable<T1>> ChunkBy<T1>(this IEnumerable<T1> source, int width)
   {
     var entries = source.LongCount() / width;
     for (var i = 0; i < entries; i++)
       yield return source.Skip(i * width).Take(width);
+  }
+
+  public static (IList<T> Matches, IList<T> Other) Partition<T>(
+    this IEnumerable<T> source,
+    Predicate<T> predicate
+  )
+  {
+    var matches = new List<T>();
+    var other = new List<T>();
+
+    foreach (var item in source)
+      if (predicate(item))
+        matches.Add(item);
+      else
+        other.Add(item);
+
+    return (matches, other);
   }
 
   public static void Deconstruct<T>(
