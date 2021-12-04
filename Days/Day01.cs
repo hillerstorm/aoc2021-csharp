@@ -1,7 +1,5 @@
-﻿public class Day01 : IDay
-{
-  public (Func<string> Part1, Func<string> Part2) Parts(string rawInput)
-  {
+﻿public class Day01 : IDay {
+  public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitAsInt();
     return (
       () => Part1(input).ToString(),

@@ -1,7 +1,5 @@
-﻿public class Day02 : IDay
-{
-  public (Func<string> Part1, Func<string> Part2) Parts(string rawInput)
-  {
+﻿public class Day02 : IDay {
+  public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitLines();
     return (
       () => Part1(input).ToString(),
@@ -15,14 +13,12 @@
   public static int Part2(IEnumerable<string> input) =>
     Parse(input, Part.Two);
 
-  private static int Parse(IEnumerable<string> input, Part part)
-  {
+  private static int Parse(IEnumerable<string> input, Part part) {
     var depth = 0;
     var pos = 0;
     var aim = 0;
     foreach (var line in input)
-      switch (line[0])
-      {
+      switch (line[0]) {
         case 'f':
           var amount = int.Parse(line[8..]);
           pos += amount;

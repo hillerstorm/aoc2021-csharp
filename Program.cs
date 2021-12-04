@@ -16,35 +16,28 @@ var info = TimeZoneInfo.FindSystemTimeZoneById(
 
 int day;
 var now = new DateTimeOffset(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, info), info.BaseUtcOffset);
-if (args.Length == 0)
-{
+if (args.Length == 0) {
   Console.WriteLine("No day given, trying latest");
   if (now > new DateTimeOffset(2021, 12, 26, 0, 0, 0, info.BaseUtcOffset))
     day = 25;
   else
     day = now.Day;
-}
-else if (!int.TryParse(args[0], out day) || day <= 0 || day > days.Length)
-{
+} else if (!int.TryParse(args[0], out day) || day <= 0 || day > days.Length) {
   Console.WriteLine($"Invalid input, must be a day between 1-{days.Length}");
   return;
 }
 
 var then = new DateTimeOffset(2021, 12, day, 0, 0, 0, info.BaseUtcOffset);
-if (now < then)
-{
+if (now < then) {
   Console.WriteLine($"Day {day} can't be started yet, {then - now:d\\:hh\\:mm\\:ss} left");
   return;
 }
 
 var (input, error) = await day.GetInput();
-if (!string.IsNullOrWhiteSpace(error))
-{
+if (!string.IsNullOrWhiteSpace(error)) {
   Console.WriteLine(error);
   return;
-}
-else if (string.IsNullOrWhiteSpace(input))
-{
+} else if (string.IsNullOrWhiteSpace(input)) {
   Console.WriteLine("Empty input");
   return;
 }

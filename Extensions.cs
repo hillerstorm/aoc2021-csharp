@@ -1,7 +1,6 @@
 ﻿using Nito.Collections;
 
-public static class Extensions
-{
+public static class Extensions {
   public static string[] SplitLines(this string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) =>
     input.Split("\n", options);
 
@@ -11,8 +10,7 @@ public static class Extensions
   public static long[] SplitAsLong(this string input, string separator = "\n") =>
     input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
 
-  public static async Task<(string? Input, string? Error)> GetInput(this int day)
-  {
+  public static async Task<(string? Input, string? Error)> GetInput(this int day) {
     var inputPath = $"Inputs/{day:00}.txt";
     if (File.Exists(inputPath))
       return (await File.ReadAllTextAsync(inputPath), null);
@@ -36,12 +34,10 @@ public static class Extensions
     return (result, null);
   }
 
-  public static IEnumerable<T> Cyclic<T>(this IEnumerable<T> source)
-  {
+  public static IEnumerable<T> Cyclic<T>(this IEnumerable<T> source) {
     var arr = source.ToArray();
     var i = 0;
-    while (true)
-    {
+    while (true) {
       yield return arr[i];
       i = (i + 1) % arr.Length;
     }
@@ -50,8 +46,7 @@ public static class Extensions
   public static IEnumerable<(int X, int Y)> Square(int x, int y, int width, int height) =>
     x.To(width).Pairs(y.To(height));
 
-  public static IEnumerable<(T A, T B)> TakeTwo<T>(this IReadOnlyList<T> source)
-  {
+  public static IEnumerable<(T A, T B)> TakeTwo<T>(this IReadOnlyList<T> source) {
     if (source.Count < 2)
       yield break;
 
@@ -59,8 +54,7 @@ public static class Extensions
       yield return (source[i - 1], source[i]);
   }
 
-  public static IEnumerable<(T A, T B, T C)> TakeThree<T>(this IReadOnlyList<T> source)
-  {
+  public static IEnumerable<(T A, T B, T C)> TakeThree<T>(this IReadOnlyList<T> source) {
     if (source.Count < 3)
       yield break;
 
@@ -81,21 +75,18 @@ public static class Extensions
   public static IEnumerable<int> To(this int from, int max) =>
     Enumerable.Range(from, max);
 
-  public static void Rotate<T>(this Deque<T> source, long offset)
-  {
-    if (offset < 0)
-    {
+  public static void Rotate<T>(this Deque<T> source, long offset) {
+    if (offset < 0) {
       offset = Math.Abs(offset);
       for (long i = 0; i < offset; i++)
         source.AddToFront(source.RemoveFromBack());
-    }
-    else if (offset > 0)
+    } else if (offset > 0) {
       for (long i = 0; i < offset; i++)
         source.AddToBack(source.RemoveFromFront());
+    }
   }
 
-  public static IEnumerable<IEnumerable<T1>> ChunkBy<T1>(this IEnumerable<T1> source, int width)
-  {
+  public static IEnumerable<IEnumerable<T1>> ChunkBy<T1>(this IEnumerable<T1> source, int width) {
     var entries = source.LongCount() / width;
     for (var i = 0; i < entries; i++)
       yield return source.Skip(i * width).Take(width);
@@ -104,8 +95,7 @@ public static class Extensions
   public static (IList<T> Matches, IList<T> Other) Partition<T>(
     this IEnumerable<T> source,
     Predicate<T> predicate
-  )
-  {
+  ) {
     var matches = new List<T>();
     var other = new List<T>();
 
@@ -122,8 +112,7 @@ public static class Extensions
     this IList<T> source,
     out T a,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     rest = source.Skip(1);
   }
@@ -133,8 +122,7 @@ public static class Extensions
     out T a,
     out T b,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     rest = source.Skip(2);
@@ -146,8 +134,7 @@ public static class Extensions
     out T b,
     out T c,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
@@ -161,8 +148,7 @@ public static class Extensions
     out T c,
     out T d,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
@@ -178,8 +164,7 @@ public static class Extensions
     out T d,
     out T e,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
@@ -197,8 +182,7 @@ public static class Extensions
     out T e,
     out T f,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
@@ -218,8 +202,7 @@ public static class Extensions
     out T f,
     out T g,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
@@ -241,8 +224,7 @@ public static class Extensions
     out T g,
     out T h,
     out IEnumerable<T> rest
-  )
-  {
+  ) {
     a = source[0];
     b = source[1];
     c = source[2];
