@@ -108,6 +108,16 @@ public static class Extensions {
     return (matches, other);
   }
 
+  public static Dictionary<TKey, long> AddTo<TKey>(this Dictionary<TKey, long> dict, TKey key, long value)
+    where TKey : notnull {
+    if (dict.ContainsKey(key))
+      dict[key] += value;
+    else
+      dict[key] = value;
+
+    return dict;
+  }
+
   public static void Deconstruct<T>(
     this IList<T> source,
     out T a,

@@ -2,35 +2,34 @@ public class Day06 : IDay {
   public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitAsInt(",");
     return (
-      () => Part1(input.ToList()).ToString(),
-      () => Part2(input.ToList()).ToString()
+      () => Part1(input).ToString(),
+      () => Part2(input).ToString()
     );
   }
 
-  public static int Part1(List<int> ages) {
-    var toAdd = 0;
-    for (var days = 0; days < 80; days++) {
-      var fishes = ages.Count;
-      if (toAdd > 0) {
-        ages.AddRange(Enumerable.Repeat(8, toAdd));
-        toAdd = 0;
-      }
-      for (var i = 0; i < fishes; i++) {
-        var fish = ages[i];
+  public static long Part1(IEnumerable<int> ages) =>
+    Run(ages, 80);
+
+  public static long Part2(IEnumerable<int> ages) =>
+    Run(ages, 256);
+
+  public static long Run(IEnumerable<int> ages, int days) {
+    var summed = ages.Aggregate(new Dictionary<int, long>(), (a, b) => a.AddTo(b, 1));
+
+    for (var day = 0; day < days; day++) {
+      var dailyCount = new Dictionary<int, long>();
+      foreach (var (fish, count) in summed) {
         if (fish == 0) {
-          ages[i] = 6;
+          dailyCount.AddTo(6, count);
+          dailyCount.AddTo(8, count);
         } else {
-          ages[i] = fish - 1;
-          if (ages[i] == 0) {
-            toAdd++;
-          }
+          dailyCount.AddTo(fish - 1, count);
         }
       }
+
+      summed = dailyCount;
     }
 
-    return ages.Count;
+    return summed.Values.Sum();
   }
-
-  public static int Part2(List<int> ages) =>
-    -1;
 }
