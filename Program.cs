@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using Aoc2021;
 
 var iDay = typeof(IDay);
 Type[] days = AppDomain.CurrentDomain.GetAssemblies()

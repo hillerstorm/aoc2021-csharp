@@ -1,3 +1,5 @@
+namespace Aoc2021;
+
 public class Day10 : IDay {
   public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitLines();
@@ -13,43 +15,25 @@ public class Day10 : IDay {
   public static long Part2(IEnumerable<string> input) =>
     Run(input).AutoCompleteScore;
 
+  private static readonly Dictionary<char, char> Openers = new() {
+    { '(', ')' },
+    { '[', ']' },
+    { '{', '}' },
+    { '<', '>' }
+  };
+  private static readonly char[] Closers = Openers.Values.ToArray();
+
   private static (int SyntaxScore, long AutoCompleteScore) Run(IEnumerable<string> lines) {
     var syntaxScore = 0;
     var autoCompleteScores = new List<long>();
 
     foreach (var line in lines) {
       var expectedClosers = new Stack<char>();
-      var isCorrupt = false;
       for (var i = 0; i < line.Length; i++) {
         var chr = line[i];
-        switch (chr) {
-          case '(':
-            expectedClosers.Push(')');
-            break;
-          case '[':
-            expectedClosers.Push(']');
-            break;
-          case '{':
-            expectedClosers.Push('}');
-            break;
-          case '<':
-            expectedClosers.Push('>');
-            break;
-          case ')':
-            isCorrupt = CheckStack(expectedClosers, chr, ref syntaxScore);
-            break;
-          case ']':
-            isCorrupt = CheckStack(expectedClosers, chr, ref syntaxScore);
-            break;
-          case '}':
-            isCorrupt = CheckStack(expectedClosers, chr, ref syntaxScore);
-            break;
-          case '>':
-            isCorrupt = CheckStack(expectedClosers, chr, ref syntaxScore);
-            break;
-        }
-
-        if (isCorrupt)
+        if (Openers.TryGetValue(chr, out var closer))
+          expectedClosers.Push(closer);
+        else if (Closers.Contains(chr) && CheckStack(expectedClosers, chr, ref syntaxScore))
           break;
 
         if (i == line.Length - 1 && expectedClosers.Count > 0)

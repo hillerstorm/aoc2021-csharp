@@ -1,3 +1,5 @@
+namespace Aoc2021;
+
 public class Day09 : IDay {
   public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitLines();

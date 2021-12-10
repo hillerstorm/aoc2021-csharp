@@ -1,5 +1,7 @@
 ﻿using Nito.Collections;
 
+namespace Aoc2021;
+
 public static class Extensions {
   public static string[] SplitLines(this string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries) =>
     input.Split("\n", options);
@@ -106,6 +108,16 @@ public static class Extensions {
         other.Add(item);
 
     return (matches, other);
+  }
+
+  public static Dictionary<TKey, int> AddTo<TKey>(this Dictionary<TKey, int> dict, TKey key, int value)
+    where TKey : notnull {
+    if (dict.ContainsKey(key))
+      dict[key] += value;
+    else
+      dict[key] = value;
+
+    return dict;
   }
 
   public static Dictionary<TKey, long> AddTo<TKey>(this Dictionary<TKey, long> dict, TKey key, long value)

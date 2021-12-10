@@ -1,3 +1,5 @@
+namespace Aoc2021;
+
 public class Day04 : IDay {
   public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitLines();
@@ -16,18 +18,17 @@ public class Day04 : IDay {
   private static int Run(string[] input, Part part) {
     var (numbers, boards) = ParseInput(input);
     var winningBoards = new HashSet<int>();
-    for (var n = 0; n < numbers.Length; n++) {
-      var num = numbers[n];
+    foreach (var num in numbers) {
       for (var b = 0; b < boards.Length; b++) {
         boards[b] = boards[b].Select(x => x == num ? "#" : x).ToArray();
-        if (CheckBoard(boards[b])) {
-          if (part == Part.One)
-            return CalculateScore(boards[b], num);
+        if (!CheckBoard(boards[b])) continue;
 
-          winningBoards.Add(b);
-          if (winningBoards.Count == boards.Length)
-            return CalculateScore(boards[b], num);
-        }
+        if (part == Part.One)
+          return CalculateScore(boards[b], num);
+
+        winningBoards.Add(b);
+        if (winningBoards.Count == boards.Length)
+          return CalculateScore(boards[b], num);
       }
     }
 
@@ -46,10 +47,10 @@ public class Day04 : IDay {
         .ToArray()
     );
 
-  private static int CalculateScore(string[] board, string num) =>
-    int.Parse(num) * board.Where(x => x != "#").Sum(x => int.Parse(x));
+  private static int CalculateScore(IEnumerable<string> board, string num) =>
+    int.Parse(num) * board.Where(x => x != "#").Sum(int.Parse);
 
-  private static bool CheckBoard(string[] board) {
+  private static bool CheckBoard(IEnumerable<string> board) {
     var rows = board.ChunkBy(5).Select(x => x.ToArray()).ToArray();
     if (rows.Any(r => string.Join("", r) == "#####"))
       return true;

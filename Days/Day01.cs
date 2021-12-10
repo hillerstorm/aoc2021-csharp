@@ -1,4 +1,6 @@
-﻿public class Day01 : IDay {
+﻿namespace Aoc2021;
+
+public class Day01 : IDay {
   public (Func<string> Part1, Func<string> Part2) Parts(string rawInput) {
     var input = rawInput.SplitAsInt();
     return (
