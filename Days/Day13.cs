@@ -57,7 +57,7 @@ public class Day13 : IDay {
     var sb = new StringBuilder();
     for (var y = minY; y <= maxY; y++) {
       if (y > minY)
-        sb.AppendLine();
+        sb.Append('\n');
       for (var x = minX; x <= maxX; x++)
         sb.Append(dots.Contains((x, y)) ? '█' : ' ');
     }
