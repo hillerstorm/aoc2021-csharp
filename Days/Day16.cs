@@ -18,7 +18,7 @@ public class Day16 : IDay {
     GreaterThan = 5,
     LessThan = 6,
     Equal = 7
-  };
+  }
 
   public abstract record Packet(int Version);
   public record LiteralPacket(int Version, long Value)
@@ -49,25 +49,25 @@ public class Day16 : IDay {
     LiteralPacket literal =>
       literal.Value,
 
-    OperatorPacket op when op.Type is OperatorType.Sum =>
+    OperatorPacket { Type: OperatorType.Sum } op =>
       op.SubPackets.Sum(GetValue),
 
-    OperatorPacket op when op.Type is OperatorType.Product =>
+    OperatorPacket { Type: OperatorType.Product } op =>
       op.SubPackets.Aggregate(1L, (x, p) => x * GetValue(p)),
 
-    OperatorPacket op when op.Type is OperatorType.Minimum =>
+    OperatorPacket { Type: OperatorType.Minimum } op =>
       op.SubPackets.Min(GetValue),
 
-    OperatorPacket op when op.Type is OperatorType.Maximum =>
+    OperatorPacket { Type: OperatorType.Maximum } op =>
       op.SubPackets.Max(GetValue),
 
-    OperatorPacket op when op.Type is OperatorType.GreaterThan =>
+    OperatorPacket { Type: OperatorType.GreaterThan } op =>
       GetValue(op.SubPackets[0]) > GetValue(op.SubPackets[1]) ? 1 : 0,
 
-    OperatorPacket op when op.Type is OperatorType.LessThan =>
+    OperatorPacket { Type: OperatorType.LessThan } op =>
       GetValue(op.SubPackets[0]) < GetValue(op.SubPackets[1]) ? 1 : 0,
 
-    OperatorPacket op when op.Type is OperatorType.Equal =>
+    OperatorPacket { Type: OperatorType.Equal } op =>
       GetValue(op.SubPackets[0]) == GetValue(op.SubPackets[1]) ? 1 : 0,
 
     _ => 0
