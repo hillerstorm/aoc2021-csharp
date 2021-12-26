@@ -130,6 +130,26 @@ public static class Extensions {
     return dict;
   }
 
+  public static T[] Pad<T>(this T[] array, T with, int by, int width, int height)
+  {
+    if (by < 1)
+      throw new ArgumentOutOfRangeException(nameof(by));
+
+    var newWidth = width + by + by;
+    var newHeight = height + by + by;
+
+    var newArray = Enumerable.Repeat(with, newWidth * newHeight).ToArray();
+
+  	for (int index = 0, newIndex = newWidth * by + by; index < array.Length;)
+  	{
+  		Array.Copy(array, index, newArray, newIndex, width);
+      index += width;
+  		newIndex += newWidth;
+  	}
+
+  	return newArray;
+  }
+
   public static void Deconstruct<T>(
     this IList<T> source,
     out T a,
