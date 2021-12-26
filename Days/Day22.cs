@@ -11,23 +11,14 @@ public class Day22 : IDay {
     );
   }
 
-  public static long Part1(IEnumerable<string> input) {
-    const int offset = 50;
-    const int size = offset + offset + 1;
+  public static long Part1(IEnumerable<string> input) =>
+    Run(input, Part.One);
 
-    var grid = Enumerable.Repeat(false, size * size * size).ToArray();
+  public static long Part2(IEnumerable<string> input) =>
+    Run(input, Part.Two);
 
-    foreach (var step in ParseSteps(input, Part.One))
-      for (var z = step.ZMin + offset; z <= step.ZMax + offset; z++)
-      for (var y = step.YMin + offset; y <= step.YMax + offset; y++)
-      for (var x = step.XMin + offset; x <= step.XMax + offset; x++)
-        grid[z * size * size + y * size + x] = step.On;
-
-    return grid.Count(on => on);
-  }
-
-  public static long Part2(IEnumerable<string> input) {
-    var steps = ParseSteps(input, Part.Two);
+  private static long Run(IEnumerable<string> input, Part part) {
+    var steps = ParseSteps(input, part);
 
     var cuboids = new List<Cuboid>();
 
