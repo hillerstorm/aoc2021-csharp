@@ -3,5 +3,5 @@
 .vscode
 bin/
 obj/
-aoc2021-csharp.sln.DotSettings.user
+Aoc2021.sln.DotSettings.user
 .DS_Store

@@ -6,7 +6,7 @@ public class Day18Tests {
   [Fact]
   public void TestPart1() {
     var assertions = new[] {
-      ("Tests/Inputs/18_1.txt", 4140)
+      ("Inputs/18_1.txt", 4140)
     };
     assertions.ForEach(((string Input, int Expected) x) =>
       Assert.Equal(x.Expected, Day18.Part1(File.ReadAllText(x.Input).SplitLines())));
@@ -15,7 +15,7 @@ public class Day18Tests {
   [Fact]
   public void TestPart2() {
     var assertions = new[] {
-      ("Tests/Inputs/18_1.txt", 3993)
+      ("Inputs/18_1.txt", 3993)
     };
     assertions.ForEach(((string Input, int Expected) x) =>
       Assert.Equal(x.Expected, Day18.Part2(File.ReadAllText(x.Input).SplitLines())));
@@ -23,7 +23,7 @@ public class Day18Tests {
 
   [Fact]
   public void TestParse() {
-    var lines = File.ReadAllText("Tests/Inputs/18_1.txt").SplitLines();
+    var lines = File.ReadAllText("Inputs/18_1.txt").SplitLines();
     lines.ForEach(line => {
       var index = 0;
       Assert.Equal(line, Day18.ParsePair(line, ref index).ToString());

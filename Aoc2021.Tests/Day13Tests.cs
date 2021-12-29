@@ -6,7 +6,7 @@ public class Day13Tests {
   [Fact]
   public void TestPart1() {
     var assertions = new[] {
-      ("Tests/Inputs/13_1.txt", 17)
+      ("Inputs/13_1.txt", 17)
     };
     assertions.ForEach(((string Input, int Expected) x) =>
       Assert.Equal(x.Expected, Day13.Part1(File.ReadAllText(x.Input).SplitLines())));
@@ -17,7 +17,7 @@ public class Day13Tests {
   {
     var assertions = new[]
     {
-      ("Tests/Inputs/13_1.txt", @"█████
+      ("Inputs/13_1.txt", @"█████
 █   █
 █   █
 █   █
